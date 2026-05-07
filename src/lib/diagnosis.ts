@@ -9,6 +9,8 @@ export interface Part {
   shopUrl: string;
 }
 
+export type Hazard = "electrical" | "gas" | "water" | "heat";
+
 export interface Diagnosis {
   id: string;
   createdAt: string;
@@ -24,6 +26,8 @@ export interface Diagnosis {
   youtubeQuery: string;
   mediaKind: MediaKind;
   mediaPreview?: string;
+  hazards?: Hazard[];
+  hazardNote?: string;
 }
 
 const MOCK_DIAGNOSES: Omit<Diagnosis, "id" | "createdAt" | "mediaKind" | "mediaPreview">[] = [
