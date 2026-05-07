@@ -26,6 +26,7 @@ function ScanPage() {
   const [kind, setKind] = useState<MediaKind>("photo");
   const [preview, setPreview] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
+  const [notes, setNotes] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [step, setStep] = useState("");
@@ -59,7 +60,7 @@ function ScanPage() {
       setProgress((p) => Math.min(95, p + 8 + Math.random() * 10));
     }, 280);
     try {
-      const d = await analyzeMedia({ kind, preview: preview ?? undefined });
+      const d = await analyzeMedia({ kind, preview: preview ?? undefined, notes: notes.trim() || undefined });
       saveDiagnosis(d);
       setProgress(100);
       navigate({ to: "/diagnosis/$id", params: { id: d.id } });
@@ -141,6 +142,21 @@ function ScanPage() {
           </button>
         </div>
         {fileName && <p className="px-4 pb-3 text-xs text-muted-foreground truncate">📎 {fileName}</p>}
+      </div>
+
+      <div className="mt-5 rounded-2xl border border-border bg-card p-4 shadow-soft">
+        <label htmlFor="notes" className="text-sm font-semibold">Zusätzliche Infos (optional)</label>
+        <p className="mt-0.5 text-xs text-muted-foreground">Beschreibe das Problem in eigenen Worten – z.B. wann es auftritt, welche Geräusche etc.</p>
+        <textarea
+          id="notes"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          rows={3}
+          maxLength={500}
+          placeholder="Z.B. Heizung gluckert seit gestern, besonders morgens…"
+          className="mt-3 w-full resize-none rounded-xl border border-border bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        />
+        <p className="mt-1 text-right text-[10px] text-muted-foreground">{notes.length}/500</p>
       </div>
 
       <button

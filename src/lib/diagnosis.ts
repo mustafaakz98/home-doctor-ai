@@ -109,7 +109,7 @@ const MOCK_DIAGNOSES: Omit<Diagnosis, "id" | "createdAt" | "mediaKind" | "mediaP
   },
 ];
 
-export async function analyzeMedia(input: { kind: MediaKind; preview?: string }): Promise<Diagnosis> {
+export async function analyzeMedia(input: { kind: MediaKind; preview?: string; notes?: string }): Promise<Diagnosis> {
   // Simulate AI latency. Replace with real call to GPT-4o / Gemini Vision later.
   await new Promise((r) => setTimeout(r, 2400));
   const pick = MOCK_DIAGNOSES[Math.floor(Math.random() * MOCK_DIAGNOSES.length)];

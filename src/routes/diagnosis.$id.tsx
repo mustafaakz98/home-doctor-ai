@@ -93,6 +93,20 @@ function DiagnosisPage() {
 
       {tab === "diy" && (
         <section className="mt-5 space-y-5">
+          <Link
+            to="/coach/$id"
+            params={{ id: d.id }}
+            className="flex items-center gap-3 rounded-2xl bg-foreground p-4 text-background shadow-soft"
+          >
+            <div className="grid h-12 w-12 place-items-center rounded-xl bg-accent text-accent-foreground">
+              <Play className="h-5 w-5" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-semibold">Live-Coach starten</p>
+              <p className="text-xs opacity-70">Kamera + KI-Stimme führt dich Schritt für Schritt</p>
+            </div>
+            <span>→</span>
+          </Link>
           <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
             <div className="aspect-video bg-foreground">
               <iframe
