@@ -37,7 +37,7 @@ function DiagnosisPage() {
     );
   }
 
-  const ytUrl = `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(d.youtubeQuery)}`;
+  const ytSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(d.youtubeQuery)}`;
 
   return (
     <AppShell>
@@ -102,34 +102,21 @@ function DiagnosisPage() {
 
       {tab === "diy" && (
         <section className="mt-5 space-y-5">
-          <Link
-            to="/coach/$id"
-            params={{ id: d.id }}
+          <a
+            href={ytSearchUrl}
+            target="_blank"
+            rel="noreferrer"
             className="flex items-center gap-3 rounded-2xl bg-foreground p-4 text-background shadow-soft"
           >
             <div className="grid h-12 w-12 place-items-center rounded-xl bg-accent text-accent-foreground">
               <Play className="h-5 w-5" />
             </div>
-            <div className="flex-1">
-              <p className="text-sm font-semibold">Live-Coach starten</p>
-              <p className="text-xs opacity-70">Kamera + KI-Stimme führt dich Schritt für Schritt</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-semibold">YouTube-Tutorials ansehen</p>
+              <p className="truncate text-xs opacity-70">Suche: „{d.youtubeQuery}"</p>
             </div>
-            <span>→</span>
-          </Link>
-          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-            <div className="aspect-video bg-foreground">
-              <iframe
-                title="Tutorial"
-                src={ytUrl}
-                className="h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-            <div className="flex items-center gap-2 px-4 py-3 text-xs text-muted-foreground">
-              <Play className="h-3.5 w-3.5" /> YouTube-Tutorials zu „{d.youtubeQuery}"
-            </div>
-          </div>
+            <span>↗</span>
+          </a>
 
           <ol className="space-y-3">
             {d.steps.map((s, i) => (
