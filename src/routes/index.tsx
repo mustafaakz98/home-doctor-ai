@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Camera, Video, Mic, Sparkles, ShieldCheck, Zap, Droplet, Flame, Wind, Plug } from "lucide-react";
+import { Camera, Video, Mic, Sparkles, ShieldCheck, Zap, Droplet, Flame, Wind, Plug, Radio } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/")({
