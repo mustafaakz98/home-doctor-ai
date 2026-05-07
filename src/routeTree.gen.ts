@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ScanRouteImport } from './routes/scan'
+import { Route as HistoryRouteImport } from './routes/history'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DiagnosisIdRouteImport } from './routes/diagnosis.$id'
 
 const ScanRoute = ScanRouteImport.update({
   id: '/scan',
   path: '/scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,30 +37,34 @@ const DiagnosisIdRoute = DiagnosisIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/history': typeof HistoryRoute
   '/scan': typeof ScanRoute
   '/diagnosis/$id': typeof DiagnosisIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/history': typeof HistoryRoute
   '/scan': typeof ScanRoute
   '/diagnosis/$id': typeof DiagnosisIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/history': typeof HistoryRoute
   '/scan': typeof ScanRoute
   '/diagnosis/$id': typeof DiagnosisIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/scan' | '/diagnosis/$id'
+  fullPaths: '/' | '/history' | '/scan' | '/diagnosis/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/scan' | '/diagnosis/$id'
-  id: '__root__' | '/' | '/scan' | '/diagnosis/$id'
+  to: '/' | '/history' | '/scan' | '/diagnosis/$id'
+  id: '__root__' | '/' | '/history' | '/scan' | '/diagnosis/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HistoryRoute: typeof HistoryRoute
   ScanRoute: typeof ScanRoute
   DiagnosisIdRoute: typeof DiagnosisIdRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/scan'
       fullPath: '/scan'
       preLoaderRoute: typeof ScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HistoryRoute: HistoryRoute,
   ScanRoute: ScanRoute,
   DiagnosisIdRoute: DiagnosisIdRoute,
 }
