@@ -60,7 +60,7 @@ function ScanPage() {
       setProgress((p) => Math.min(95, p + 8 + Math.random() * 10));
     }, 280);
     try {
-      const d = await analyzeMedia({ kind, preview: preview ?? undefined });
+      const d = await analyzeMedia({ kind, preview: preview ?? undefined, notes: notes.trim() || undefined });
       saveDiagnosis(d);
       setProgress(100);
       navigate({ to: "/diagnosis/$id", params: { id: d.id } });
