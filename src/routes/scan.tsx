@@ -43,7 +43,7 @@ function ScanPage() {
     const f = e.target.files?.[0];
     if (!f) return;
     setFileName(f.name);
-    if (f.type.startsWith("image/") || f.type.startsWith("video/")) {
+    if (f.type.startsWith("image/") || f.type.startsWith("video/") || f.type.startsWith("audio/")) {
       setPreview(URL.createObjectURL(f));
     } else {
       setPreview(null);
