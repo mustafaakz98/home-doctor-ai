@@ -37,7 +37,7 @@ function DiagnosisPage() {
     );
   }
 
-  const ytUrl = `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(d.youtubeQuery)}`;
+  const ytSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(d.youtubeQuery)}`;
 
   return (
     <AppShell>
