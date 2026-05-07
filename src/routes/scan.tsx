@@ -26,6 +26,7 @@ function ScanPage() {
   const [kind, setKind] = useState<MediaKind>("photo");
   const [preview, setPreview] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
+  const [notes, setNotes] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [step, setStep] = useState("");
