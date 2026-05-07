@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Camera, Video, Mic, Sparkles, ShieldCheck, Zap, Droplet, Flame, Wind, Plug } from "lucide-react";
+import { Camera, Video, Mic, Sparkles, ShieldCheck, Zap, Droplet, Flame, Wind, Plug, Radio } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/")({
@@ -81,6 +81,24 @@ function Home() {
             </Link>
           ))}
         </div>
+
+        <Link
+          to="/live"
+          className="mt-3 flex items-center gap-4 overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-soft transition-colors hover:bg-secondary"
+        >
+          <div className="relative grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-accent text-accent-foreground">
+            <span className="absolute inset-0 -m-1 rounded-2xl bg-accent/30 animate-pulse-ring" />
+            <Radio className="relative h-5 w-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="flex items-center gap-2 text-sm font-semibold">
+              Live-Assistent
+              <span className="rounded-full bg-foreground px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-background">Neu</span>
+            </p>
+            <p className="text-xs text-muted-foreground">Kamera + Sprache. Frag den KI-Profi in Echtzeit.</p>
+          </div>
+          <span className="text-accent">→</span>
+        </Link>
       </section>
 
       <section className="mt-10">

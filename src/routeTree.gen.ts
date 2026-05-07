@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ScanRouteImport } from './routes/scan'
 import { Route as ProsRouteImport } from './routes/pros'
+import { Route as LiveRouteImport } from './routes/live'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DiagnosisIdRouteImport } from './routes/diagnosis.$id'
@@ -24,6 +25,11 @@ const ScanRoute = ScanRouteImport.update({
 const ProsRoute = ProsRouteImport.update({
   id: '/pros',
   path: '/pros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveRoute = LiveRouteImport.update({
+  id: '/live',
+  path: '/live',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoryRoute = HistoryRouteImport.update({
@@ -50,6 +56,7 @@ const CoachIdRoute = CoachIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
+  '/live': typeof LiveRoute
   '/pros': typeof ProsRoute
   '/scan': typeof ScanRoute
   '/coach/$id': typeof CoachIdRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
+  '/live': typeof LiveRoute
   '/pros': typeof ProsRoute
   '/scan': typeof ScanRoute
   '/coach/$id': typeof CoachIdRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
+  '/live': typeof LiveRoute
   '/pros': typeof ProsRoute
   '/scan': typeof ScanRoute
   '/coach/$id': typeof CoachIdRoute
@@ -77,16 +86,25 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/history'
+    | '/live'
     | '/pros'
     | '/scan'
     | '/coach/$id'
     | '/diagnosis/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/pros' | '/scan' | '/coach/$id' | '/diagnosis/$id'
+  to:
+    | '/'
+    | '/history'
+    | '/live'
+    | '/pros'
+    | '/scan'
+    | '/coach/$id'
+    | '/diagnosis/$id'
   id:
     | '__root__'
     | '/'
     | '/history'
+    | '/live'
     | '/pros'
     | '/scan'
     | '/coach/$id'
@@ -96,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HistoryRoute: typeof HistoryRoute
+  LiveRoute: typeof LiveRoute
   ProsRoute: typeof ProsRoute
   ScanRoute: typeof ScanRoute
   CoachIdRoute: typeof CoachIdRoute
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/pros'
       fullPath: '/pros'
       preLoaderRoute: typeof ProsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live': {
+      id: '/live'
+      path: '/live'
+      fullPath: '/live'
+      preLoaderRoute: typeof LiveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/history': {
@@ -152,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HistoryRoute: HistoryRoute,
+  LiveRoute: LiveRoute,
   ProsRoute: ProsRoute,
   ScanRoute: ScanRoute,
   CoachIdRoute: CoachIdRoute,
