@@ -14,6 +14,7 @@ import { Route as ProsRouteImport } from './routes/pros'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DiagnosisIdRouteImport } from './routes/diagnosis.$id'
+import { Route as CoachIdRouteImport } from './routes/coach.$id'
 
 const ScanRoute = ScanRouteImport.update({
   id: '/scan',
@@ -40,12 +41,18 @@ const DiagnosisIdRoute = DiagnosisIdRouteImport.update({
   path: '/diagnosis/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoachIdRoute = CoachIdRouteImport.update({
+  id: '/coach/$id',
+  path: '/coach/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/pros': typeof ProsRoute
   '/scan': typeof ScanRoute
+  '/coach/$id': typeof CoachIdRoute
   '/diagnosis/$id': typeof DiagnosisIdRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/history': typeof HistoryRoute
   '/pros': typeof ProsRoute
   '/scan': typeof ScanRoute
+  '/coach/$id': typeof CoachIdRoute
   '/diagnosis/$id': typeof DiagnosisIdRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,28 @@ export interface FileRoutesById {
   '/history': typeof HistoryRoute
   '/pros': typeof ProsRoute
   '/scan': typeof ScanRoute
+  '/coach/$id': typeof CoachIdRoute
   '/diagnosis/$id': typeof DiagnosisIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history' | '/pros' | '/scan' | '/diagnosis/$id'
+  fullPaths:
+    | '/'
+    | '/history'
+    | '/pros'
+    | '/scan'
+    | '/coach/$id'
+    | '/diagnosis/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/pros' | '/scan' | '/diagnosis/$id'
-  id: '__root__' | '/' | '/history' | '/pros' | '/scan' | '/diagnosis/$id'
+  to: '/' | '/history' | '/pros' | '/scan' | '/coach/$id' | '/diagnosis/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/history'
+    | '/pros'
+    | '/scan'
+    | '/coach/$id'
+    | '/diagnosis/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +98,7 @@ export interface RootRouteChildren {
   HistoryRoute: typeof HistoryRoute
   ProsRoute: typeof ProsRoute
   ScanRoute: typeof ScanRoute
+  CoachIdRoute: typeof CoachIdRoute
   DiagnosisIdRoute: typeof DiagnosisIdRoute
 }
 
@@ -116,6 +139,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiagnosisIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/coach/$id': {
+      id: '/coach/$id'
+      path: '/coach/$id'
+      fullPath: '/coach/$id'
+      preLoaderRoute: typeof CoachIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -124,8 +154,19 @@ const rootRouteChildren: RootRouteChildren = {
   HistoryRoute: HistoryRoute,
   ProsRoute: ProsRoute,
   ScanRoute: ScanRoute,
+  CoachIdRoute: CoachIdRoute,
   DiagnosisIdRoute: DiagnosisIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
