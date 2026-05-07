@@ -104,7 +104,13 @@ function ScanPage() {
           {preview && kind === "video" && (
             <video src={preview} controls className="h-full w-full object-cover" />
           )}
-          {!preview && (
+          {kind === "audio" && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-foreground p-6 text-background">
+              <p className="text-xs uppercase tracking-wider opacity-70">{preview ? "Audio bereit – KI hört zu" : "Bereit zum Aufnehmen"}</p>
+              <Waveform active src={preview ?? undefined} className="w-full" />
+            </div>
+          )}
+          {!preview && kind !== "audio" && (
             <div className="absolute inset-0 grid place-items-center">
               <div className="flex flex-col items-center gap-3 text-muted-foreground">
                 <div className="grid h-20 w-20 place-items-center rounded-full bg-background shadow-neu">
