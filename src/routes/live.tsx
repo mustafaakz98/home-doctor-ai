@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Mic, MicOff, Camera as CameraIcon, Loader2, Sparkles, X } from "lucide-react";
-import { askLiveAssistant } from "@/server/live.functions";
+import { askLiveAssistant } from "@/lib/live.functions";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/live")({
