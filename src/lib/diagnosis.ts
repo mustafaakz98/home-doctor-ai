@@ -9,6 +9,8 @@ export interface Part {
   shopUrl: string;
 }
 
+export type Hazard = "electrical" | "gas" | "water" | "heat";
+
 export interface Diagnosis {
   id: string;
   createdAt: string;
@@ -24,6 +26,8 @@ export interface Diagnosis {
   youtubeQuery: string;
   mediaKind: MediaKind;
   mediaPreview?: string;
+  hazards?: Hazard[];
+  hazardNote?: string;
 }
 
 const MOCK_DIAGNOSES: Omit<Diagnosis, "id" | "createdAt" | "mediaKind" | "mediaPreview">[] = [
@@ -87,6 +91,8 @@ const MOCK_DIAGNOSES: Omit<Diagnosis, "id" | "createdAt" | "mediaKind" | "mediaP
       "Defektes Gerät reparieren oder ersetzen.",
     ],
     youtubeQuery: "FI Schalter löst aus Ursache finden",
+    hazards: ["electrical"],
+    hazardNote: "Achtung: Arbeiten an Starkstrom-Anlagen sind lebensgefährlich und gesetzlich nur durch Elektrofachkräfte zulässig. Schalte den Stromkreis ab und kontaktiere einen Profi.",
   },
   {
     category: "hvac",
@@ -106,6 +112,25 @@ const MOCK_DIAGNOSES: Omit<Diagnosis, "id" | "createdAt" | "mediaKind" | "mediaP
       "Trocknen lassen, einsetzen, Klappe schließen.",
     ],
     youtubeQuery: "Klimaanlage Filter reinigen",
+  },
+  {
+    category: "heating",
+    title: "Verdacht auf Gasleck an Therme",
+    summary: "Charakteristisches Zischen und Geruch deuten auf eine Undichtigkeit an der Gaszuleitung der Therme hin. Akute Gefahr.",
+    confidence: 0.86,
+    difficulty: "pro",
+    estimatedCost: "Notdienst",
+    estimatedTime: "Sofort handeln",
+    parts: [],
+    steps: [
+      "Keine elektrischen Schalter, Lichter oder Geräte betätigen!",
+      "Gashahn schließen, Fenster und Türen weit öffnen.",
+      "Gebäude verlassen und Nachbarn warnen.",
+      "Im Freien Notruf 112 oder Gas-Notdienst des Versorgers anrufen.",
+    ],
+    youtubeQuery: "Gasleck Therme richtig verhalten",
+    hazards: ["gas"],
+    hazardNote: "Lebensgefahr! Bei Gasgeruch sofort Gashahn schließen, lüften, Gebäude verlassen und im Freien den Gas-Notdienst oder die 112 rufen. Keine Funken, keine Schalter betätigen.",
   },
 ];
 

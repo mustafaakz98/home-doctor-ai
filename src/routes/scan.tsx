@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { Camera, Video, Mic, Upload, Sparkles, ArrowLeft, Loader2 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
+import { Waveform } from "@/components/Waveform";
 import { analyzeMedia, saveDiagnosis, type MediaKind } from "@/lib/diagnosis";
 import { cn } from "@/lib/utils";
 
@@ -42,7 +43,7 @@ function ScanPage() {
     const f = e.target.files?.[0];
     if (!f) return;
     setFileName(f.name);
-    if (f.type.startsWith("image/") || f.type.startsWith("video/")) {
+    if (f.type.startsWith("image/") || f.type.startsWith("video/") || f.type.startsWith("audio/")) {
       setPreview(URL.createObjectURL(f));
     } else {
       setPreview(null);
@@ -103,7 +104,13 @@ function ScanPage() {
           {preview && kind === "video" && (
             <video src={preview} controls className="h-full w-full object-cover" />
           )}
-          {!preview && (
+          {kind === "audio" && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-foreground p-6 text-background">
+              <p className="text-xs uppercase tracking-wider opacity-70">{preview ? "Audio bereit – KI hört zu" : "Bereit zum Aufnehmen"}</p>
+              <Waveform active src={preview ?? undefined} className="w-full" />
+            </div>
+          )}
+          {!preview && kind !== "audio" && (
             <div className="absolute inset-0 grid place-items-center">
               <div className="flex flex-col items-center gap-3 text-muted-foreground">
                 <div className="grid h-20 w-20 place-items-center rounded-full bg-background shadow-neu">

@@ -67,7 +67,16 @@ function DiagnosisPage() {
         </div>
       </div>
 
-      {d.difficulty === "pro" && (
+      {d.hazards && d.hazards.length > 0 && (
+        <div className="mt-4 overflow-hidden rounded-2xl border-2 border-destructive bg-destructive/10 shadow-soft animate-pulse-once">
+          <div className="flex items-center gap-2 bg-destructive px-4 py-2 text-xs font-bold uppercase tracking-wider text-destructive-foreground">
+            <AlertTriangle className="h-4 w-4" /> Gefahrenhinweis
+          </div>
+          <p className="px-4 py-3 text-sm text-destructive">{d.hazardNote}</p>
+        </div>
+      )}
+
+      {d.difficulty === "pro" && !d.hazards?.length && (
         <div className="mt-4 flex items-start gap-3 rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>Für deine Sicherheit empfehlen wir, diese Reparatur einer Fachkraft zu überlassen.</p>
