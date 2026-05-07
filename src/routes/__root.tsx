@@ -77,6 +77,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#0b1220" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "FixScan – KI-Diagnose für Hausreparaturen" },
+      { name: "twitter:title", content: "FixScan – KI-Diagnose für Hausreparaturen" },
+      { property: "og:description", content: "Shazam für Reparaturen: Foto, Video oder Geräusch aufnehmen und KI-Diagnose für Sanitär, Heizung, Klima und Elektro erhalten." },
+      { name: "twitter:description", content: "Shazam für Reparaturen: Foto, Video oder Geräusch aufnehmen und KI-Diagnose für Sanitär, Heizung, Klima und Elektro erhalten." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3443b236-05aa-4bcf-afab-6d4bd3524f29/id-preview-001cf23f--78b2bb57-5f74-493b-9afc-4e64420311e1.lovable.app-1778147719462.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3443b236-05aa-4bcf-afab-6d4bd3524f29/id-preview-001cf23f--78b2bb57-5f74-493b-9afc-4e64420311e1.lovable.app-1778147719462.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
