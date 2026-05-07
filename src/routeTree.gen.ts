@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ScanRouteImport } from './routes/scan'
+import { Route as ProsRouteImport } from './routes/pros'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DiagnosisIdRouteImport } from './routes/diagnosis.$id'
@@ -17,6 +18,11 @@ import { Route as DiagnosisIdRouteImport } from './routes/diagnosis.$id'
 const ScanRoute = ScanRouteImport.update({
   id: '/scan',
   path: '/scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProsRoute = ProsRouteImport.update({
+  id: '/pros',
+  path: '/pros',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoryRoute = HistoryRouteImport.update({
@@ -38,12 +44,14 @@ const DiagnosisIdRoute = DiagnosisIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
+  '/pros': typeof ProsRoute
   '/scan': typeof ScanRoute
   '/diagnosis/$id': typeof DiagnosisIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
+  '/pros': typeof ProsRoute
   '/scan': typeof ScanRoute
   '/diagnosis/$id': typeof DiagnosisIdRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
+  '/pros': typeof ProsRoute
   '/scan': typeof ScanRoute
   '/diagnosis/$id': typeof DiagnosisIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history' | '/scan' | '/diagnosis/$id'
+  fullPaths: '/' | '/history' | '/pros' | '/scan' | '/diagnosis/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/scan' | '/diagnosis/$id'
-  id: '__root__' | '/' | '/history' | '/scan' | '/diagnosis/$id'
+  to: '/' | '/history' | '/pros' | '/scan' | '/diagnosis/$id'
+  id: '__root__' | '/' | '/history' | '/pros' | '/scan' | '/diagnosis/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HistoryRoute: typeof HistoryRoute
+  ProsRoute: typeof ProsRoute
   ScanRoute: typeof ScanRoute
   DiagnosisIdRoute: typeof DiagnosisIdRoute
 }
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/scan'
       fullPath: '/scan'
       preLoaderRoute: typeof ScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pros': {
+      id: '/pros'
+      path: '/pros'
+      fullPath: '/pros'
+      preLoaderRoute: typeof ProsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/history': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HistoryRoute: HistoryRoute,
+  ProsRoute: ProsRoute,
   ScanRoute: ScanRoute,
   DiagnosisIdRoute: DiagnosisIdRoute,
 }
