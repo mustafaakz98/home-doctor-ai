@@ -91,6 +91,8 @@ const MOCK_DIAGNOSES: Omit<Diagnosis, "id" | "createdAt" | "mediaKind" | "mediaP
       "Defektes Gerät reparieren oder ersetzen.",
     ],
     youtubeQuery: "FI Schalter löst aus Ursache finden",
+    hazards: ["electrical"],
+    hazardNote: "Achtung: Arbeiten an Starkstrom-Anlagen sind lebensgefährlich und gesetzlich nur durch Elektrofachkräfte zulässig. Schalte den Stromkreis ab und kontaktiere einen Profi.",
   },
   {
     category: "hvac",
