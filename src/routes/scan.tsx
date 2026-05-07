@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { Camera, Video, Mic, Upload, Sparkles, ArrowLeft, Loader2 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
+import { Waveform } from "@/components/Waveform";
 import { analyzeMedia, saveDiagnosis, type MediaKind } from "@/lib/diagnosis";
 import { cn } from "@/lib/utils";
 
