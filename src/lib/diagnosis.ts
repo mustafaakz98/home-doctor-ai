@@ -113,6 +113,25 @@ const MOCK_DIAGNOSES: Omit<Diagnosis, "id" | "createdAt" | "mediaKind" | "mediaP
     ],
     youtubeQuery: "Klimaanlage Filter reinigen",
   },
+  {
+    category: "heating",
+    title: "Verdacht auf Gasleck an Therme",
+    summary: "Charakteristisches Zischen und Geruch deuten auf eine Undichtigkeit an der Gaszuleitung der Therme hin. Akute Gefahr.",
+    confidence: 0.86,
+    difficulty: "pro",
+    estimatedCost: "Notdienst",
+    estimatedTime: "Sofort handeln",
+    parts: [],
+    steps: [
+      "Keine elektrischen Schalter, Lichter oder Geräte betätigen!",
+      "Gashahn schließen, Fenster und Türen weit öffnen.",
+      "Gebäude verlassen und Nachbarn warnen.",
+      "Im Freien Notruf 112 oder Gas-Notdienst des Versorgers anrufen.",
+    ],
+    youtubeQuery: "Gasleck Therme richtig verhalten",
+    hazards: ["gas"],
+    hazardNote: "Lebensgefahr! Bei Gasgeruch sofort Gashahn schließen, lüften, Gebäude verlassen und im Freien den Gas-Notdienst oder die 112 rufen. Keine Funken, keine Schalter betätigen.",
+  },
 ];
 
 export async function analyzeMedia(input: { kind: MediaKind; preview?: string; notes?: string }): Promise<Diagnosis> {
